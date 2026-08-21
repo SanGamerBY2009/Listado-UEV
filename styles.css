@@ -1,0 +1,61 @@
+body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f4f4f9; color: #333; }
+.container { max-width: 900px; margin: auto; }
+
+header { 
+  display: flex; 
+  align-items: center; 
+  justify-content: space-between; 
+  background: white; 
+  padding: 15px 20px; 
+  border-radius: 8px; 
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
+  margin-bottom: 20px; 
+}
+.header-logo { display: flex; align-items: center; gap: 15px; }
+.header-titles h1 { margin: 0; font-size: 20px; color: #007bff; }
+.header-titles h2 { margin: 2px 0 0 0; font-size: 13px; color: #666; font-weight: normal; }
+
+.inicio-box { background: white; padding: 25px; border-radius: 8px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+.cursos-grid { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 20px; }
+.btn-curso { padding: 15px 25px; font-size: 16px; font-weight: bold; background-color: #007bff; color: white; border: none; border-radius: 6px; cursor: pointer; transition: 0.2s; }
+.btn-curso:hover { background-color: #0056b3; }
+
+.btn-volver { display: inline-block; margin-bottom: 15px; padding: 8px 15px; background-color: #6c757d; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
+.btn-volver:hover { background-color: #5a6268; }
+
+#reader { width: 100%; max-width: 400px; margin: 0 auto 20px auto; min-height: 200px; background: #000; border-radius: 8px; overflow: hidden; }
+
+.btn-container { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin: 15px 0; }
+.btn-camara { padding: 10px 15px; background-color: #28a745; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
+.btn-reset { padding: 10px 15px; font-size: 14px; font-weight: bold; color: white; background-color: #dc3545; border: none; border-radius: 5px; cursor: pointer; }
+.btn-pdf { padding: 10px 15px; font-size: 14px; font-weight: bold; color: white; background-color: #e0a800; border: none; border-radius: 5px; cursor: pointer; }
+.btn-item-reset { padding: 4px 8px; font-size: 12px; background-color: #6c757d; color: white; border: none; border-radius: 3px; cursor: pointer; }
+
+table { width: 100%; border-collapse: collapse; background: #fff; margin-top: 10px; }
+th, td { border: 1px solid #ddd; padding: 10px; text-align: center; }
+th { background-color: #007bff; color: white; }
+
+.presente { background-color: #d4edda; color: #155724; font-weight: bold; }
+.atrasado { background-color: #fff3cd; color: #856404; font-weight: bold; }
+.falta { background-color: #f8d7da; color: #721c24; font-weight: bold; }
+
+.qr-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; margin-top: 20px; }
+.qr-card { background: white; border: 1px solid #ccc; padding: 10px; text-align: center; border-radius: 5px; font-size: 11px; }
+.qr-card div { margin: 5px auto; }
+
+/* ==== Clases nuevas: reemplazan los estilos inline (style="...") que estaban en el HTML ==== */
+
+/* Oculta una sección por completo (reemplaza style="display: none;") */
+.oculto {
+  display: none;
+}
+
+/* Texto centrado dentro de un contenedor o encabezado (reemplaza style="text-align:center;") */
+.texto-centrado {
+  text-align: center;
+}
+
+/* Separación superior para títulos/secciones que necesitan más aire arriba (reemplaza style="margin-top:30px;") */
+.espaciado-superior {
+  margin-top: 30px;
+}
