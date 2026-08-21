@@ -1,425 +1,682 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+  <link rel="stylesheet" href="lst.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sistema de Asistencia - UEV</title>
+  <title>Sistema de Asistencia Web - Unidad Educativa Vinces</title>
 
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="Listado_01.css">
 
   <script src="https://unpkg.com/html5-qrcode"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
 </head>
+
 <body>
 
-<div class="container">
-  
-  <header>
-    <div class="header-logo">
-      <!-- Escudo de la UEV -->
-      <svg width="60" height="70" viewBox="0 0 200 230" xmlns="http://www.w3.org/2000/svg">
-        <path d="M 10 20 Q 100 0 190 20 Q 200 100 180 170 Q 100 230 100 230 Q 100 230 20 170 Q 0 100 10 20 Z" fill="#87ceeb" stroke="#111" stroke-width="6"/>
-        <path id="text-curve" d="M 25 55 Q 100 25 175 55" fill="none"/>
-        <text font-size="14" font-weight="bold" fill="#111" text-anchor="middle">
+  <!-- =====================================================
+       PANTALLA 1: BIENVENIDA
+       ===================================================== -->
+
+  <div id="vista-bienvenida" class="vista-flex">
+    <div class="escudo-bienvenida">
+      <svg width="150" height="175" viewBox="0 0 200 230" xmlns="http://www.w3.org/2000/svg" class="escudo">
+        <path class="escudo-fondo" d="M 10 20 Q 100 0 190 20 Q 200 100 180 170 Q 100 230 100 230 Q 100 230 20 170 Q 0 100 10 20 Z"/>
+        <path id="text-curve" class="curva-texto" d="M 25 55 Q 100 25 175 55"/>
+
+        <text class="texto-escudo" font-size="14" text-anchor="middle">
           <textPath href="#text-curve" startOffset="50%">UNIDAD EDUCATIVA</textPath>
         </text>
-        <text x="100" y="70" font-size="24" font-weight="900" text-anchor="middle" fill="#111">VINCES</text>
-        <text x="100" y="82" font-size="8" font-weight="bold" text-anchor="middle" fill="#111">FUNDADO EL 14 DE JUNIO DE 1973</text>
-        <g stroke="#111" stroke-width="2" fill="none">
+
+        <text x="100" y="70" class="texto-vinces">VINCES</text>
+        <text x="100" y="82" class="texto-fundacion">FUNDADO EL 14 DE JUNIO DE 1973</text>
+
+        <g class="elementos-escudo">
           <ellipse cx="55" cy="115" rx="10" ry="14" fill="#333"/>
           <circle cx="51" cy="108" r="3" fill="#fff"/>
           <circle cx="59" cy="108" r="3" fill="#fff"/>
           <polygon points="100 95 135 103 100 111 65 103" fill="#555"/>
           <rect x="75" y="112" width="50" height="15" rx="3" fill="#fff"/>
         </g>
-        <g stroke="#111" stroke-width="1.5">
+
+        <g class="elementos-banderas">
           <rect x="30" y="145" width="65" height="6" fill="#ffcc00"/>
           <rect x="30" y="151" width="65" height="5" fill="#003399"/>
           <rect x="30" y="156" width="65" height="5" fill="#cc0000"/>
           <rect x="105" y="145" width="65" height="8" fill="#ffffff"/>
           <rect x="105" y="153" width="65" height="8" fill="#111111"/>
         </g>
-        <text x="100" y="180" font-size="10" font-weight="bold" text-anchor="middle" fill="#111">ESTUDIO</text>
-        <text x="100" y="193" font-size="10" font-weight="bold" text-anchor="middle" fill="#111">DISCIPLINA</text>
-        <text x="100" y="206" font-size="10" font-weight="bold" text-anchor="middle" fill="#111">Y DEPORTES</text>
+
+        <text x="100" y="180" class="texto-lema">ESTUDIO</text>
+        <text x="100" y="193" class="texto-lema">DISCIPLINA</text>
+        <text x="100" y="206" class="texto-lema">Y DEPORTES</text>
       </svg>
-      <div class="header-titles">
-        <h1>UNIDAD EDUCATIVA VINCES</h1>
-        <h2>Control de Asistencia Escolar</h2>
+    </div>
+
+    <h1 class="bienvenida-titulo">Bienvenido a la Unidad Educativa Vinces</h1>
+    <p class="bienvenida-subtitulo">Sistema de Control y Registro de Asistencia Escolar</p>
+
+    <button class="btn-entrar" id="btn-ingresar">
+      Ingresar al sistema ➔
+    </button>
+  </div>
+
+  <!-- =====================================================
+       APLICACIÓN PRINCIPAL
+       ===================================================== -->
+
+  <div class="container vista-oculta" id="main-container">
+
+    <!-- ENCABEZADO -->
+
+    <header>
+      <div class="header-logo">
+        <svg width="45" height="55" viewBox="0 0 200 230" xmlns="http://www.w3.org/2000/svg" class="escudo">
+          <path class="escudo-fondo" d="M 10 20 Q 100 0 190 20 Q 200 100 180 170 Q 100 230 100 230 Q 100 230 20 170 Q 0 100 10 20 Z"/>
+          <path id="text-curve-head" class="curva-texto" d="M 25 55 Q 100 25 175 55"/>
+
+          <text class="texto-escudo" font-size="14" text-anchor="middle">
+            <textPath href="#text-curve-head" startOffset="50%">UNIDAD EDUCATIVA</textPath>
+          </text>
+
+          <text x="100" y="70" class="texto-vinces">VINCES</text>
+        </svg>
+
+        <div class="header-titles">
+          <h1>UNIDAD EDUCATIVA VINCES</h1>
+          <h2>Control de Asistencia Digital</h2>
+        </div>
+      </div>
+
+      <button class="btn-item-reset btn-inicio" id="btn-inicio-top">
+        🏠 Inicio
+      </button>
+    </header>
+
+    <!-- =================================================
+         PANTALLA 2: SELECCIÓN DE CURSOS
+         ================================================= -->
+
+    <div id="vista-cursos" class="vista-oculta">
+      <div class="cursos-box">
+        <h2>Seleccione el Curso</h2>
+        <p>Haga clic en el curso correspondiente para acceder a la lista de estudiantes:</p>
+
+        <div class="cursos-grid">
+          <button class="btn-curso" data-curso="3A">
+            📋 Tercero "A" Técnico
+          </button>
+
+          <button class="btn-curso" data-curso="3B">
+            📋 Tercero "B" Técnico
+          </button>
+
+          <button class="btn-curso" data-curso="3C">
+            📋 Tercero "C" Técnico
+          </button>
+        </div>
       </div>
     </div>
-  </header>
 
-  <!-- PÁGINA DE INICIO -->
-  <div id="vista-inicio">
-    <div class="inicio-box">
-      <h2>Seleccione el Curso</h2>
-      <p>Haga clic en el curso para ver la lista de estudiantes:</p>
-      
-      <div class="cursos-grid">
-        <button class="btn-curso" onclick="irACurso('3A')">📋 Tercero "A" Técnico</button>
-        <button class="btn-curso" onclick="irACurso('3B')">📋 Tercero "B" Técnico</button>
-        <button class="btn-curso" onclick="irACurso('3C')">📋 Tercero "C" Técnico</button>
+    <!-- =================================================
+         PANTALLA 3: ASISTENCIA
+         ================================================= -->
+
+    <div id="vista-lista" class="vista-oculta">
+      <button class="btn-volver" id="btn-volver-cursos">
+        ⬅ Volver a Cursos
+      </button>
+
+      <h2 id="titulo-curso" class="titulo-curso"></h2>
+
+      <div class="btn-container">
+        <button id="btn-iniciar" class="btn-camara">
+          🎥 Activar Escáner QR
+        </button>
       </div>
+
+      <div id="reader"></div>
+
+      <div class="btn-container">
+        <button class="btn-pdf" id="btn-guardar-pdf">
+          📄 Guardar Asistencia en PDF
+        </button>
+
+        <button class="btn-reset" id="btn-reiniciar-general">
+          🔄 Reiniciar Asistencia General
+        </button>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre Completo</th>
+            <th>Hora</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+
+        <tbody id="tabla-estudiantes"></tbody>
+      </table>
+
+      <h2 class="titulo-carnets">Carnets QR</h2>
+
+      <div class="qr-grid" id="qr-container"></div>
     </div>
   </div>
 
-  <!-- PÁGINA DE LISTA DE ASISTENCIA -->
-  <div id="vista-curso" class="oculto">
-    <button class="btn-volver" onclick="irAInicio()">⬅ Volver a Cursos</button>
-    
-    <h2 id="titulo-curso" class="texto-centrado"></h2>
-    
-    <div class="texto-centrado">
-      <button id="btn-iniciar" class="btn-camara" onclick="iniciarCamaraDirecta()">🎥 Activar Escáner QR</button>
-    </div>
-    <div id="reader"></div>
+  <!-- =====================================================
+       JAVASCRIPT
+       ===================================================== -->
 
-    <div class="btn-container">
-      <button class="btn-pdf" onclick="guardarPDF()">📄 Guardar Asistencia en PDF</button>
-      <button class="btn-reset" onclick="reiniciarAsistencia()">🔄 Reiniciar Asistencia General</button>
-    </div>
+  <script>
+    const baseDeDatos = {
+      "3A": [
+        { id: "3A-01", nombre: "ALVARADO HERRERA DAMIAN ALBERTO" },
+        { id: "3A-02", nombre: "ANGULO ELIZONDO EVELYN CAROLINA" },
+        { id: "3A-03", nombre: "ARANA ARIAS JOSUE RIGOBERTO" },
+        { id: "3A-04", nombre: "ARIAS ALVARADO MELODY MARITA" },
+        { id: "3A-05", nombre: "BANCHEN RIVAS YAIKEL JACINTO" },
+        { id: "3A-06", nombre: "BRAVO CARRIEL JORDANA VALENTINA" },
+        { id: "3A-07", nombre: "BRIONES ARVELAES LUIS MIGUEL" },
+        { id: "3A-08", nombre: "CABELLO SANTILLAN DAMIAN ALEISANDER" },
+        { id: "3A-09", nombre: "CAMEJO MORA HENDRIK DANIEL" },
+        { id: "3A-10", nombre: "CANO JIMENEZ SNEIDER JADIR" },
+        { id: "3A-11", nombre: "CARRIEL DELGADO IVAN ARTURO" },
+        { id: "3A-12", nombre: "COELLO PERALTA ROXANA GABRIELA" },
+        { id: "3A-13", nombre: "FRANCO TERAN ANNE NOHELY" },
+        { id: "3A-14", nombre: "GARCIA BONILLA GISLAINE NAIDELY" },
+        { id: "3A-15", nombre: "GILCER TOALA ALLISON VALENTINA" },
+        { id: "3A-16", nombre: "GUILLIN HOLGUIN SNAIDER ANTONIO" },
+        { id: "3A-17", nombre: "LEON VINCES BETZY VALESKA" },
+        { id: "3A-18", nombre: "MARTINEZ COELLO ANGEL ANDRES" },
+        { id: "3A-19", nombre: "MONTES SOLORZANO ANAHI FERNANDA" },
+        { id: "3A-20", nombre: "MOSQUERA PINCAY ERICK DE JESUS" },
+        { id: "3A-21", nombre: "MUÑOZ HERRERA ERIN JOAQUIN" },
+        { id: "3A-22", nombre: "ORTIZ LEON SCARLETH EMELINA" },
+        { id: "3A-23", nombre: "PIGUAVE NAVARRO DENISSE RUBI" },
+        { id: "3A-24", nombre: "RIVERA GARCIA WELLINTONG JOSE" },
+        { id: "3A-25", nombre: "RIVERA MUÑOZ AXEL MISHELL" },
+        { id: "3A-26", nombre: "ROSADO LOOR DALEMBER DANIEL" },
+        { id: "3A-27", nombre: "SANTANA MANRIQUE STEVEN ANDRES" },
+        { id: "3A-28", nombre: "TEJADA GOROTIZA JULIO CESAR" },
+        { id: "3A-29", nombre: "VILLAMAR ZARATE ANELYS ROXANA" },
+        { id: "3A-30", nombre: "ZAMBRANO MORAN DANNA VALESKA" },
+        { id: "3A-31", nombre: "ZURITA MUÑOZ MIBARFALI JAZMIN" }
+      ],
 
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Nombre Completo</th>
-          <th>Hora</th>
-          <th>Estado</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody id="tabla-estudiantes"></tbody>
-    </table>
+      "3B": [
+        { id: "3B-01", nombre: "ALVARADO TRIANA JONATHAN JOFFRE" },
+        { id: "3B-02", nombre: "ARANA BAZURTO WENDY ISABELA" },
+        { id: "3B-03", nombre: "BRAVO SILVA JEREMY SANTIAGO" },
+        { id: "3B-04", nombre: "BUSTAMANTE MORA AURELIO MIGUEL" },
+        { id: "3B-05", nombre: "CABRERA GOYON NEBRASKA YUDDY" },
+        { id: "3B-06", nombre: "CAMPUZANO GILSE MIRLEN DAKIRA" },
+        { id: "3B-07", nombre: "CASTRO MOREIRA FELIX ALEJANDRO" },
+        { id: "3B-08", nombre: "COELLO VILLAMAR FIORELLA JAHAIRA" },
+        { id: "3B-09", nombre: "DEL PEZO PACHECO ORLY SMITH" },
+        { id: "3B-10", nombre: "DIAZ MENDOZA NESTOR YARETH" },
+        { id: "3B-11", nombre: "FUENTES CRUZ ARIANA ASHLEY" },
+        { id: "3B-12", nombre: "GARCIA JIMENEZ ANTHONY ALFREDO" },
+        { id: "3B-13", nombre: "GILSE MORAN SABINO JOSIAS" },
+        { id: "3B-14", nombre: "HOLGUIN PIN YERSON YANDEL" },
+        { id: "3B-15", nombre: "LEON CASTRO SAYURI DANIELLE" },
+        { id: "3B-16", nombre: "LINO MIRANDA JEREMY RODRIGO" },
+        { id: "3B-17", nombre: "MACIAS QUISPE SIOMET DANIELA" },
+        { id: "3B-18", nombre: "MENDOZA ESTRADA CARLOS EMILIO" },
+        { id: "3B-19", nombre: "MENDOZA MUÑOZ MANUEL SEBASTIAN" },
+        { id: "3B-20", nombre: "MONTIEL HIDALGO GERRARD IBRAHIMOVIC" },
+        { id: "3B-21", nombre: "PERALTA VERA MAYBELING NAYELLI" },
+        { id: "3B-22", nombre: "PEREZ SANTILLAN SHEYLA YOLANDA" },
+        { id: "3B-23", nombre: "PEÑA PERALTA KAROLINE RAFAELA" },
+        { id: "3B-24", nombre: "POSLIGUA MENDEZ CARLOS GUILLERMO" },
+        { id: "3B-25", nombre: "RIZZO MENDOZA SEAN FERNANDO" },
+        { id: "3B-26", nombre: "RUIZ CARRIEL ADAN GABRIEL" },
+        { id: "3B-27", nombre: "SOTOMAYOR JIMENEZ CARLOS ENRIQUE" },
+        { id: "3B-28", nombre: "SOTOMAYOR JIMENEZ CARLOS MAURICIO" },
+        { id: "3B-29", nombre: "VILLASAGUA BASURTO TAYRON HERNAN" },
+        { id: "3B-30", nombre: "TERRY MATÍAS MENA GÓMEZ" }
+      ],
 
-    <h2 class="espaciado-superior">Carnets QR</h2>
-    <div class="qr-grid" id="qr-container"></div>
-  </div>
+      "3C": [
+        { id: "3C-01", nombre: "BANCHEN HAZ ASHLEY VALESKA" },
+        { id: "3C-02", nombre: "BRIONES AGUIRRE KATHIA MILAGROS" },
+        { id: "3C-03", nombre: "BUSTAMANTE YELA MAXIMILIANO ELADIO" },
+        { id: "3C-04", nombre: "CALI HOLGUIN JOSE LUIS" },
+        { id: "3C-05", nombre: "CHING BUSTAMANTE JIMMY ROBERTO" },
+        { id: "3C-06", nombre: "CLEMENTE PINCAY DEREK MATHIAS" },
+        { id: "3C-07", nombre: "CUJILAN SUAREZ GENESIS LUCERO" },
+        { id: "3C-08", nombre: "FERNANDEZ LEON YISLAINE DALEXI" },
+        { id: "3C-09", nombre: "FUENTES UBE MAIKEL MEDARDO" },
+        { id: "3C-10", nombre: "GARCIA YELA ALEXANDRA ISABEL" },
+        { id: "3C-11", nombre: "GUERRERO TREJO DAMIAN ANDRES" },
+        { id: "3C-12", nombre: "LEON MORA DEIDANIA LISBETH" },
+        { id: "3C-13", nombre: "MACIAS CEDEÑO ELVIS PAUL" },
+        { id: "3C-14", nombre: "MENDOZA MUÑOZ ADAMARIS GRACIELA" },
+        { id: "3C-15", nombre: "MENDOZA MUÑOZ JORDANA ELIBETH" },
+        { id: "3C-16", nombre: "MIELES OSORIO ANGEL JOSE" },
+        { id: "3C-17", nombre: "MOREIRA MORA MIRLEY MARGOTH" },
+        { id: "3C-18", nombre: "MUÑOZ ESPAÑA EVELIN ILUSION" },
+        { id: "3C-19", nombre: "ORTEGA AVILES WALTER JOEL" },
+        { id: "3C-20", nombre: "PEREZ SANCHEZ JENNIFER GABRIELA" },
+        { id: "3C-21", nombre: "PEÑAFIEL MORA JORYI JAVIER" },
+        { id: "3C-22", nombre: "RONQUILLO RUIZ BRYAN ARISTEO" },
+        { id: "3C-23", nombre: "RUIZ ESCOBAR KETZIA ROMINA" },
+        { id: "3C-24", nombre: "SANCHEZ LICOA ANTHONY LENIN" },
+        { id: "3C-25", nombre: "SOLIS MIÑO HERVIS DARLEYS" },
+        { id: "3C-26", nombre: "SUAREZ AGUIRRE NELSON ARTURO" },
+        { id: "3C-27", nombre: "VELIZ LEON JEFFREY DAMIAN" }
+      ]
+    };
 
-</div>
+    /* =====================================================
+       VARIABLES
+       ===================================================== */
 
-<script>
-  const baseDeDatos = {
-    "3A": [
-      { id: "3A-01", nombre: "ALVARADO HERRERA DAMIAN ALBERTO" },
-      { id: "3A-02", nombre: "ANGULO ELIZONDO EVELYN CAROLINA" },
-      { id: "3A-03", nombre: "ARANA ARIAS JOSUE RIGOBERTO" },
-      { id: "3A-04", nombre: "ARIAS ALVARADO MELODY MARITA" },
-      { id: "3A-05", nombre: "BANCHEN RIVAS YAIKEL JACINTO" },
-      { id: "3A-06", nombre: "BRAVO CARRIEL JORDANA VALENTINA" },
-      { id: "3A-07", nombre: "BRIONES ARVELAES LUIS MIGUEL" },
-      { id: "3A-08", nombre: "CABELLO SANTILLAN DAMIAN ALEISANDER" },
-      { id: "3A-09", nombre: "CAMEJO MORA HENDRIK DANIEL" },
-      { id: "3A-10", nombre: "CANO JIMENEZ SNEIDER JADIR" },
-      { id: "3A-11", nombre: "CARRIEL DELGADO IVAN ARTURO" },
-      { id: "3A-12", nombre: "COELLO PERALTA ROXANA GABRIELA" },
-      { id: "3A-13", nombre: "FRANCO TERAN ANNE NOHELY" },
-      { id: "3A-14", nombre: "GARCIA BONILLA GISLAINE NAIDELY" },
-      { id: "3A-15", nombre: "GILCER TOALA ALLISON VALENTINA" },
-      { id: "3A-16", nombre: "GUILLIN HOLGUIN SNAIDER ANTONIO" },
-      { id: "3A-17", nombre: "LEON VINCES BETZY VALESKA" },
-      { id: "3A-18", nombre: "MARTINEZ COELLO ANGEL ANDRES" },
-      { id: "3A-19", nombre: "MONTES SOLORZANO ANAHI FERNANDA" },
-      { id: "3A-20", nombre: "MOSQUERA PINCAY ERICK DE JESUS" },
-      { id: "3A-21", nombre: "MUÑOZ HERRERA ERIN JOAQUIN" },
-      { id: "3A-22", nombre: "ORTIZ LEON SCARLETH EMELINA" },
-      { id: "3A-23", nombre: "PIGUAVE NAVARRO DENISSE RUBI" },
-      { id: "3A-24", nombre: "RIVERA GARCIA WELLINTONG JOSE" },
-      { id: "3A-25", nombre: "RIVERA MUÑOZ AXEL MISHELL" },
-      { id: "3A-26", nombre: "ROSADO LOOR DALEMBER DANIEL" },
-      { id: "3A-27", nombre: "SANTANA MANRIQUE STEVEN ANDRES" },
-      { id: "3A-28", nombre: "TEJADA GOROTIZA JULIO CESAR" },
-      { id: "3A-29", nombre: "VILLAMAR ZARATE ANELYS ROXANA" },
-      { id: "3A-30", nombre: "ZAMBRANO MORAN DANNA VALESKA" },
-      { id: "3A-31", nombre: "ZURITA MUÑOZ MIBARFALI JAZMIN" }
-    ],
-    "3B": [
-      { id: "3B-01", nombre: "ALVARADO TRIANA JONATHAN JOFFRE" },
-      { id: "3B-02", nombre: "ARANA BAZURTO WENDY ISABELA" },
-      { id: "3B-03", nombre: "BRAVO SILVA JEREMY SANTIAGO" },
-      { id: "3B-04", nombre: "BUSTAMANTE MORA AURELIO MIGUEL" },
-      { id: "3B-05", nombre: "CABRERA GOYON NEBRASKA YUDDY" },
-      { id: "3B-06", nombre: "CAMPUZANO GILSE MIRLEN DAKIRA" },
-      { id: "3B-07", nombre: "CASTRO MOREIRA FELIX ALEJANDRO" },
-      { id: "3B-08", nombre: "COELLO VILLAMAR FIORELLA JAHAIRA" },
-      { id: "3B-09", nombre: "DEL PEZO PACHECO ORLY SMITH" },
-      { id: "3B-10", nombre: "DIAZ MENDOZA NESTOR YARETH" },
-      { id: "3B-11", nombre: "FUENTES CRUZ ARIANA ASHLEY" },
-      { id: "3B-12", nombre: "GARCIA JIMENEZ ANTHONY ALFREDO" },
-      { id: "3B-13", nombre: "GILSE MORAN SABINO JOSIAS" },
-      { id: "3B-14", nombre: "HOLGUIN PIN YERSON YANDEL" },
-      { id: "3B-15", nombre: "LEON CASTRO SAYURI DANIELLE" },
-      { id: "3B-16", nombre: "LINO MIRANDA JEREMY RODRIGO" },
-      { id: "3B-17", nombre: "MACIAS QUISPE SIOMET DANIELA" },
-      { id: "3B-18", nombre: "MENDOZA ESTRADA CARLOS EMILIO" },
-      { id: "3B-19", nombre: "MENDOZA MUÑOZ MANUEL SEBASTIAN" },
-      { id: "3B-20", nombre: "MONTIEL HIDALGO GERRARD IBRAHIMOVIC" },
-      { id: "3B-21", nombre: "PERALTA VERA MAYBELING NAYELLI" },
-      { id: "3B-22", nombre: "PEREZ SANTILLAN SHEYLA YOLANDA" },
-      { id: "3B-23", nombre: "PEÑA PERALTA KAROLINE RAFAELA" },
-      { id: "3B-24", nombre: "POSLIGUA MENDEZ CARLOS GUILLERMO" },
-      { id: "3B-25", nombre: "RIZZO MENDOZA SEAN FERNANDO" },
-      { id: "3B-26", nombre: "RUIZ CARRIEL ADAN GABRIEL" },
-      { id: "3B-27", nombre: "SOTOMAYOR JIMENEZ CARLOS ENRIQUE" },
-      { id: "3B-28", nombre: "SOTOMAYOR JIMENEZ CARLOS MAURICIO" },
-      { id: "3B-29", nombre: "VILLASAGUA BASURTO TAYRON HERNAN" },
-      { id: "3B-30", nombre: "TERRY MATÍAS MENA GÓMEZ" }
-    ],
-    "3C": [
-      { id: "3C-01", nombre: "BANCHEN HAZ ASHLEY VALESKA" },
-      { id: "3C-02", nombre: "BRIONES AGUIRRE KATHIA MILAGROS" },
-      { id: "3C-03", nombre: "BUSTAMANTE YELA MAXIMILIANO ELADIO" },
-      { id: "3C-04", nombre: "CALI HOLGUIN JOSE LUIS" },
-      { id: "3C-05", nombre: "CHING BUSTAMANTE JIMMY ROBERTO" },
-      { id: "3C-06", nombre: "CLEMENTE PINCAY DEREK MATHIAS" },
-      { id: "3C-07", nombre: "CUJILAN SUAREZ GENESIS LUCERO" },
-      { id: "3C-08", nombre: "FERNANDEZ LEON YISLAINE DALEXI" },
-      { id: "3C-09", nombre: "FUENTES UBE MAIKEL MEDARDO" },
-      { id: "3C-10", nombre: "GARCIA YELA ALEXANDRA ISABEL" },
-      { id: "3C-11", nombre: "GUERRERO TREJO DAMIAN ANDRES" },
-      { id: "3C-12", nombre: "LEON MORA DEIDANIA LISBETH" },
-      { id: "3C-13", nombre: "MACIAS CEDEÑO ELVIS PAUL" },
-      { id: "3C-14", nombre: "MENDOZA MUÑOZ ADAMARIS GRACIELA" },
-      { id: "3C-15", nombre: "MENDOZA MUÑOZ JORDANA ELIBETH" },
-      { id: "3C-16", nombre: "MIELES OSORIO ANGEL JOSE" },
-      { id: "3C-17", nombre: "MOREIRA MORA MIRLEY MARGOTH" },
-      { id: "3C-18", nombre: "MUÑOZ ESPAÑA EVELIN ILUSION" },
-      { id: "3C-19", nombre: "ORTEGA AVILES WALTER JOEL" },
-      { id: "3C-20", nombre: "PEREZ SANCHEZ JENNIFER GABRIELA" },
-      { id: "3C-21", nombre: "PEÑAFIEL MORA JORYI JAVIER" },
-      { id: "3C-22", nombre: "RONQUILLO RUIZ BRYAN ARISTEO" },
-      { id: "3C-23", nombre: "RUIZ ESCOBAR KETZIA ROMINA" },
-      { id: "3C-24", nombre: "SANCHEZ LICOA ANTHONY LENIN" },
-      { id: "3C-25", nombre: "SOLIS MIÑO HERVIS DARLEYS" },
-      { id: "3C-26", nombre: "SUAREZ AGUIRRE NELSON ARTURO" },
-      { id: "3C-27", nombre: "VELIZ LEON JEFFREY DAMIAN" }
-    ]
-  };
+    let cursoActual = null;
+    let registroAsistencia = {};
+    let html5QrCode = null;
 
-  let cursoActual = null;
-  let registroAsistencia = {};
-  let html5QrCode = null;
+    /* =====================================================
+       INICIALIZACIÓN
+       ===================================================== */
 
-  function cargarDatosGuardados() {
-    try {
-      const datosAlmacenados = localStorage.getItem("asistencia_uev_datos");
-      if (datosAlmacenados) {
-        registroAsistencia = JSON.parse(datosAlmacenados);
-      } else {
-        inicializarEstructura();
-      }
-    } catch(e) {
-      inicializarEstructura();
-    }
-  }
+    document.addEventListener("DOMContentLoaded", () => {
+      cargarDatosGuardados();
 
-  function inicializarEstructura() {
-    registroAsistencia = {};
-    Object.keys(baseDeDatos).forEach(curso => {
-      baseDeDatos[curso].forEach(est => {
-        registroAsistencia[est.id] = { estado: "Falta", hora: "--" };
+      document.getElementById("btn-ingresar").onclick = irASeleccionCurso;
+      document.getElementById("btn-inicio-top").onclick = irABienvenida;
+      document.getElementById("btn-volver-cursos").onclick = irASeleccionCurso;
+      document.getElementById("btn-iniciar").onclick = iniciarCamaraDirecta;
+      document.getElementById("btn-reiniciar-general").onclick = reiniciarAsistencia;
+      document.getElementById("btn-guardar-pdf").onclick = guardarPDF;
+
+      document.querySelectorAll(".btn-curso").forEach(boton => {
+        boton.addEventListener("click", e => {
+          const codigoCurso = e.currentTarget.getAttribute("data-curso");
+          irACurso(codigoCurso);
+        });
       });
     });
-    guardarDatosLocalmente();
-  }
 
-  function guardarDatosLocalmente() {
-    try {
-      localStorage.setItem("asistencia_uev_datos", JSON.stringify(registroAsistencia));
-    } catch(e) {}
-  }
+    /* =====================================================
+       DATOS
+       ===================================================== */
 
-  function obtenerEtiquetaCurso(codigo) {
-    switch(codigo) {
-      case "3A": return 'Tercero "A" Técnico';
-      case "3B": return 'Tercero "B" Técnico';
-      case "3C": return 'Tercero "C" Técnico';
-      default: return '';
-    }
-  }
-
-  function irACurso(codigoCurso) {
-    cursoActual = codigoCurso;
-    const etiqueta = obtenerEtiquetaCurso(codigoCurso);
-    document.getElementById("titulo-curso").textContent = `Lista de Asistencia - ${etiqueta}`;
-    
-    document.getElementById("vista-inicio").classList.add("oculto");
-    document.getElementById("vista-curso").classList.remove("oculto");
-
-    renderizarCurso();
-  }
-
-  function irAInicio() {
-    detenerCamara();
-    document.getElementById("vista-curso").classList.add("oculto");
-    document.getElementById("vista-inicio").classList.remove("oculto");
-    cursoActual = null;
-  }
-
-  function detenerCamara() {
-    if (html5QrCode) {
+    function cargarDatosGuardados() {
       try {
-        html5QrCode.stop().then(() => {
-          document.getElementById("btn-iniciar").style.display = "inline-block";
-        }).catch(() => {});
-      } catch(e) {}
-    }
-  }
+        const datosAlmacenados = localStorage.getItem("asistencia_uev_datos");
 
-  function renderizarCurso() {
-    const tabla = document.getElementById("tabla-estudiantes");
-    const qrContainer = document.getElementById("qr-container");
-    tabla.innerHTML = "";
-    qrContainer.innerHTML = "";
-
-    const estudiantes = baseDeDatos[cursoActual] || [];
-
-    estudiantes.forEach(est => {
-      const info = registroAsistencia[est.id] || { estado: "Falta", hora: "--" };
-      const tr = document.createElement("tr");
-      tr.innerHTML = `
-        <td>${est.id}</td>
-        <td>${est.nombre}</td>
-        <td id="h-${est.id}">${info.hora}</td>
-        <td id="e-${est.id}" class="${claseEstado(info.estado)}">${info.estado}</td>
-        <td><button class="btn-item-reset" onclick="reiniciarEstudiante('${est.id}')">🔄 Reset</button></td>
-      `;
-      tabla.appendChild(tr);
-
-      const card = document.createElement("div");
-      card.className = "qr-card";
-      card.innerHTML = `<strong>${est.nombre}</strong><div id="q-${est.id}"></div>`;
-      qrContainer.appendChild(card);
-      
-      if (typeof QRCode !== "undefined") {
-        try {
-          new QRCode(document.getElementById(`q-${est.id}`), { text: est.id, width: 80, height: 80 });
-        } catch(e) {
-          document.getElementById(`q-${est.id}`).textContent = `[ID: ${est.id}]`;
+        if (datosAlmacenados) {
+          registroAsistencia = JSON.parse(datosAlmacenados);
+        } else {
+          inicializarEstructura();
         }
-      } else {
-        document.getElementById(`q-${est.id}`).textContent = `[ID: ${est.id}]`;
+      } catch (e) {
+        inicializarEstructura();
       }
-    });
-  }
-
-  function claseEstado(estado) {
-    if (estado === "Asistió") return "presente";
-    if (estado === "Atrasado") return "atrasado";
-    return "falta";
-  }
-
-  function iniciarCamaraDirecta() {
-    if (typeof Html5Qrcode === "undefined") {
-      alert("Para usar la cámara necesitas conexión a internet.");
-      return;
     }
 
-    if (!html5QrCode) {
-      html5QrCode = new Html5Qrcode("reader");
+    function inicializarEstructura() {
+      registroAsistencia = {};
+
+      Object.keys(baseDeDatos).forEach(curso => {
+        baseDeDatos[curso].forEach(est => {
+          registroAsistencia[est.id] = {
+            estado: "Falta",
+            hora: "--"
+          };
+        });
+      });
+
+      guardarDatosLocalmente();
     }
 
-    const config = { fps: 10, qrbox: { width: 250, height: 250 } };
-
-    html5QrCode.start(
-      { facingMode: "environment" },
-      config,
-      onScanSuccess
-    ).then(() => {
-      document.getElementById("btn-iniciar").style.display = "none";
-    }).catch(err => {
-      alert("No se pudo acceder a la cámara. Revisa los permisos.");
-      document.getElementById("btn-iniciar").style.display = "inline-block";
-    });
-  }
-
-  function onScanSuccess(decodedText) {
-    if (!registroAsistencia[decodedText] || registroAsistencia[decodedText].estado !== "Falta") return;
-
-    const ahora = new Date();
-    const hora = ahora.toLocaleTimeString();
-    const limite = new Date();
-    limite.setHours(12, 10, 0, 0);
-
-    const estado = (ahora <= limite) ? "Asistió" : "Atrasado";
-    registroAsistencia[decodedText].estado = estado;
-    registroAsistencia[decodedText].hora = hora;
-
-    guardarDatosLocalmente();
-
-    const elHora = document.getElementById(`h-${decodedText}`);
-    const elEstado = document.getElementById(`e-${decodedText}`);
-
-    if (elHora && elEstado) {
-      elHora.textContent = hora;
-      elEstado.textContent = estado;
-      elEstado.className = claseEstado(estado);
+    function guardarDatosLocalmente() {
+      try {
+        localStorage.setItem(
+          "asistencia_uev_datos",
+          JSON.stringify(registroAsistencia)
+        );
+      } catch (e) {}
     }
-  }
 
-  function reiniciarEstudiante(id) {
-    registroAsistencia[id] = { estado: "Falta", hora: "--" };
-    guardarDatosLocalmente();
-    
-    const elHora = document.getElementById(`h-${id}`);
-    const elEstado = document.getElementById(`e-${id}`);
+    /* =====================================================
+       NAVEGACIÓN
+       ===================================================== */
 
-    if (elHora && elEstado) {
-      elHora.textContent = "--";
-      elEstado.textContent = "Falta";
-      elEstado.className = "falta";
+    function irASeleccionCurso() {
+      detenerCamara();
+
+      document.getElementById("vista-bienvenida").classList.remove("vista-flex");
+      document.getElementById("vista-bienvenida").classList.add("vista-oculta");
+
+      document.getElementById("main-container").classList.remove("vista-oculta");
+
+      document.getElementById("vista-cursos").classList.remove("vista-oculta");
+      document.getElementById("vista-cursos").classList.add("vista-bloque");
+
+      document.getElementById("vista-lista").classList.remove("vista-bloque");
+      document.getElementById("vista-lista").classList.add("vista-oculta");
     }
-  }
 
-  function reiniciarAsistencia() {
-    if(!cursoActual) return;
-    baseDeDatos[cursoActual].forEach(est => {
-      registroAsistencia[est.id] = { estado: "Falta", hora: "--" };
-    });
-    guardarDatosLocalmente();
-    renderizarCurso();
-  }
+    function irABienvenida() {
+      detenerCamara();
 
-  function guardarPDF() {
-    if(!cursoActual) return;
-    if (typeof window.jspdf === "undefined") {
-      alert("La librería PDF requiere conexión a internet.");
-      return;
+      document.getElementById("main-container").classList.remove("vista-bloque");
+      document.getElementById("main-container").classList.add("vista-oculta");
+
+      document.getElementById("vista-bienvenida").classList.remove("vista-oculta");
+      document.getElementById("vista-bienvenida").classList.add("vista-flex");
     }
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
-    const fecha = new Date().toLocaleDateString();
-    const nombreCurso = obtenerEtiquetaCurso(cursoActual);
 
-    doc.setFontSize(16);
-    doc.text(`Unidad Educativa Vinces - Asistencia`, 14, 15);
-    doc.setFontSize(12);
-    doc.text(`Curso: ${nombreCurso}`, 14, 22);
-    doc.setFontSize(10);
-    doc.text(`Fecha: ${fecha}`, 14, 28);
+    function irACurso(codigoCurso) {
+      cursoActual = codigoCurso;
 
-    const filas = baseDeDatos[cursoActual].map(est => [
-      est.id,
-      est.nombre,
-      registroAsistencia[est.id].hora,
-      registroAsistencia[est.id].estado
-    ]);
+      const etiqueta = obtenerEtiquetaCurso(codigoCurso);
 
-    doc.autoTable({
-      head: [['ID', 'Nombre Completo', 'Hora', 'Estado']],
-      body: filas,
-      startY: 34,
-      theme: 'grid',
-      headStyles: { fillColor: [0, 123, 255] }
-    });
+      document.getElementById("titulo-curso").textContent =
+        `Lista de Asistencia - ${etiqueta}`;
 
-    doc.save(`asistencia_${cursoActual}_${fecha.replace(/\//g, '-')}.pdf`);
-  }
+      document.getElementById("vista-cursos").classList.remove("vista-bloque");
+      document.getElementById("vista-cursos").classList.add("vista-oculta");
 
-  cargarDatosGuardados();
-</script>
+      document.getElementById("vista-lista").classList.remove("vista-oculta");
+      document.getElementById("vista-lista").classList.add("vista-bloque");
+
+      renderizarCurso();
+    }
+
+    function obtenerEtiquetaCurso(codigo) {
+      switch (codigo) {
+        case "3A":
+          return 'Tercero "A" Técnico';
+        case "3B":
+          return 'Tercero "B" Técnico';
+        case "3C":
+          return 'Tercero "C" Técnico';
+        default:
+          return '';
+      }
+    }
+
+    /* =====================================================
+       CÁMARA
+       ===================================================== */
+
+    function detenerCamara() {
+      if (html5QrCode) {
+        try {
+          html5QrCode.stop()
+            .then(() => {
+              document.getElementById("btn-iniciar").classList.remove("vista-oculta");
+            })
+            .catch(() => {});
+        } catch (e) {}
+      }
+    }
+
+    function iniciarCamaraDirecta() {
+      if (typeof Html5Qrcode === "undefined") {
+        alert("Para usar la cámara necesitas conexión a internet.");
+        return;
+      }
+
+      if (!html5QrCode) {
+        html5QrCode = new Html5Qrcode("reader");
+      }
+
+      const config = {
+        fps: 10,
+        qrbox: {
+          width: 250,
+          height: 250
+        }
+      };
+
+      html5QrCode.start(
+        { facingMode: "environment" },
+        config,
+        onScanSuccess
+      ).then(() => {
+        document.getElementById("btn-iniciar").classList.add("vista-oculta");
+      }).catch(() => {
+        alert("No se pudo acceder a la cámara. Revisa los permisos.");
+      });
+    }
+
+    /* =====================================================
+       RENDERIZADO
+       ===================================================== */
+
+    function renderizarCurso() {
+      const tabla = document.getElementById("tabla-estudiantes");
+      const qrContainer = document.getElementById("qr-container");
+
+      tabla.innerHTML = "";
+      qrContainer.innerHTML = "";
+
+      const estudiantes = baseDeDatos[cursoActual] || [];
+
+      estudiantes.forEach(est => {
+        const info = registroAsistencia[est.id] || {
+          estado: "Falta",
+          hora: "--"
+        };
+
+        const tr = document.createElement("tr");
+
+        tr.innerHTML = `
+          <td>${est.id}</td>
+          <td>${est.nombre}</td>
+          <td id="h-${est.id}">${info.hora}</td>
+          <td id="e-${est.id}" class="${claseEstado(info.estado)}">${info.estado}</td>
+          <td>
+            <button class="btn-item-reset" onclick="reiniciarEstudiante('${est.id}')">
+              🔄 Reset
+            </button>
+          </td>
+        `;
+
+        tabla.appendChild(tr);
+
+        const card = document.createElement("div");
+        card.className = "qr-card";
+
+        card.innerHTML = `
+          <strong>${est.nombre}</strong>
+          <div id="q-${est.id}"></div>
+        `;
+
+        qrContainer.appendChild(card);
+
+        if (typeof QRCode !== "undefined") {
+          try {
+            new QRCode(
+              document.getElementById(`q-${est.id}`),
+              {
+                text: est.id,
+                width: 80,
+                height: 80
+              }
+            );
+          } catch (e) {
+            document.getElementById(`q-${est.id}`).textContent =
+              `[ID: ${est.id}]`;
+          }
+        } else {
+          document.getElementById(`q-${est.id}`).textContent =
+            `[ID: ${est.id}]`;
+        }
+      });
+    }
+
+    /* =====================================================
+       ESTADOS
+       ===================================================== */
+
+    function claseEstado(estado) {
+      if (estado === "Asistió") {
+        return "presente";
+      }
+
+      if (estado === "Atrasado") {
+        return "atrasado";
+      }
+
+      return "falta";
+    }
+
+    /* =====================================================
+       REGISTRO QR
+       ===================================================== */
+
+    function onScanSuccess(decodedText) {
+      if (
+        !registroAsistencia[decodedText] ||
+        registroAsistencia[decodedText].estado !== "Falta"
+      ) {
+        return;
+      }
+
+      const ahora = new Date();
+      const hora = ahora.toLocaleTimeString();
+
+      const limite = new Date();
+      limite.setHours(12, 10, 0, 0);
+
+      const estado = ahora <= limite ? "Asistió" : "Atrasado";
+
+      registroAsistencia[decodedText].estado = estado;
+      registroAsistencia[decodedText].hora = hora;
+
+      guardarDatosLocalmente();
+
+      const elHora = document.getElementById(`h-${decodedText}`);
+      const elEstado = document.getElementById(`e-${decodedText}`);
+
+      if (elHora && elEstado) {
+        elHora.textContent = hora;
+        elEstado.textContent = estado;
+        elEstado.className = claseEstado(estado);
+      }
+    }
+
+    /* =====================================================
+       REINICIAR ESTUDIANTE
+       ===================================================== */
+
+    function reiniciarEstudiante(id) {
+      registroAsistencia[id] = {
+        estado: "Falta",
+        hora: "--"
+      };
+
+      guardarDatosLocalmente();
+
+      const elHora = document.getElementById(`h-${id}`);
+      const elEstado = document.getElementById(`e-${id}`);
+
+      if (elHora && elEstado) {
+        elHora.textContent = "--";
+        elEstado.textContent = "Falta";
+        elEstado.className = "falta";
+      }
+    }
+
+    /* =====================================================
+       REINICIAR ASISTENCIA GENERAL
+       ===================================================== */
+
+    function reiniciarAsistencia() {
+      if (!cursoActual) {
+        return;
+      }
+
+      baseDeDatos[cursoActual].forEach(est => {
+        registroAsistencia[est.id] = {
+          estado: "Falta",
+          hora: "--"
+        };
+      });
+
+      guardarDatosLocalmente();
+      renderizarCurso();
+    }
+
+    /* =====================================================
+       PDF
+       ===================================================== */
+
+    function guardarPDF() {
+      if (!cursoActual) {
+        return;
+      }
+
+      if (typeof window.jspdf === "undefined") {
+        alert("La librería PDF requiere conexión a internet.");
+        return;
+      }
+
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      const fecha = new Date().toLocaleDateString();
+      const nombreCurso = obtenerEtiquetaCurso(cursoActual);
+
+      doc.setFontSize(16);
+      doc.text(
+        "Unidad Educativa Vinces - Asistencia",
+        14,
+        15
+      );
+
+      doc.setFontSize(12);
+      doc.text(
+        `Curso: ${nombreCurso}`,
+        14,
+        22
+      );
+
+      doc.setFontSize(10);
+      doc.text(
+        `Fecha: ${fecha}`,
+        14,
+        28
+      );
+
+      const filas = baseDeDatos[cursoActual].map(est => [
+        est.id,
+        est.nombre,
+        registroAsistencia[est.id].hora,
+        registroAsistencia[est.id].estado
+      ]);
+
+      doc.autoTable({
+        head: [
+          [
+            "ID",
+            "Nombre Completo",
+            "Hora",
+            "Estado"
+          ]
+        ],
+        body: filas,
+        startY: 34,
+        theme: "grid",
+        headStyles: {
+          fillColor: [0, 123, 255]
+        }
+      });
+
+      doc.save(
+        `asistencia_${cursoActual}_${fecha.replace(/\//g, "-")}.pdf`
+      );
+    }
+  </script>
+
 </body>
 </html>
